@@ -9,9 +9,11 @@ pragma circom 2.1.4;
 // HINT:NEGATION
 
 template NotEqual() {
-
-    // Your code here.
-   
+    signal input a[2];
+    signal output c;
+    signal inter1;
+    inter1 <-- (a[0] != a[1]);
+    c <== inter1;
 }
 
 component main = NotEqual();
