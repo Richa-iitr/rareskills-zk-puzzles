@@ -6,8 +6,10 @@ pragma circom 2.1.4;
 // HINT: Non Quadratic constraints are not allowed. 
 
 template Pow() {
-   
-   // Your Code here.. 
+   signal input a[2];
+   signal output c;
+   signal res <-- a[0] ** a[1];
+   c <== res;
 }
 
 component main = Pow();
