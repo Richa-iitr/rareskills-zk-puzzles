@@ -73,9 +73,46 @@ template Sudoku () {
     3 === row4[3].out + row4[2].out + row4[1].out + row4[0].out; 
 
     // Write your solution from here.. Good Luck!
-    
-    
-   
+    signal inter1[4];
+    signal inter2[4];
+    var l=1;
+    var x=0;
+    for(var i=0;i<16;i+=4){
+        var check[4];
+        for(var j=0;j<4;j++){
+            check[j] = 0;
+        }
+        for(var j=0;j<4;j++){
+            check[solution[i+j]-1] = 1;
+        }
+        for(var j=0;j<4;j++){
+            l *= (check[j] == 1) ? 1 : 0;
+        }
+        if(x>0) {
+            inter1[x] <-- l * inter1[x-1];
+        } else {
+            inter1[0] <-- l;
+        }
+        x++;
+    }
+    for(var i=0;i<4;i++){
+        var check[4];
+        for(var j=0;j<4;j++){
+            check[j] = 0;
+        }
+        for(var j=0;j<16;j+=4){
+            check[solution[i+j]-1] = 1;
+        }
+        for(var j=0;j<4;j++){
+            l *= (check[j] == 1) ? 1 : 0;
+        }
+        if(i>0) {
+            inter2[i] <-- l * inter2[i-1];
+        } else {
+            inter2[0] <-- l;
+        }
+    }
+    out <== inter1[3] * inter2[3];
 }
 
 
